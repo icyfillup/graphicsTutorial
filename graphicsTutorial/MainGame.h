@@ -3,34 +3,49 @@
 #include <SDL/SDL.h>
 #include <GL/glew.h>
 
-#include "GLSLProgram.h"
+#include <Bengine/Bengine.h>
+#include <Bengine/GLSLProgram.h>
+#include <Bengine/GLTexture.h>
+#include <Bengine/Sprite.h>
+#include <Bengine/Window.h>
 
-#include "Sprite.h"
+#include <Bengine/Camera2D.h>
 
-enum class GameState { PLAY, EXIT };
+#include <vector>
 
+enum class GameState {PLAY, EXIT};
+
+//Our example game class, just for testing purposes right now
 class MainGame
 {
-	public:
-	MainGame();
-	~MainGame();
+public:
+    MainGame();
+    ~MainGame();
 
-	void run();
+    void run();
 
-	private:
-	void initSystems();
-	void initShaders();
-	void gameLoop();
-	void processInput();
-	void drawGame();
+private:
+    void initSystems();
+    void initShaders();
+    void gameLoop();
+    void processInput();
+    void drawGame();
+    void calculateFPS();
 
-	SDL_Window* _window;
-	int _screenWidth;
-	int _screenHeight;
-	GameState _gameState;
+    Bengine::Window _window;
+    int _screenWidth;
+    int _screenHeight;
+    GameState _gameState;
 
-	Sprite _sprite;
+    std::vector <Bengine::Sprite*> _sprites;
 
-	GLSLProgram _colorProgram;
+    Bengine::GLSLProgram _colorProgram;
+    Bengine::Camera2D _camera;
+
+    float _fps;
+    float _maxFPS;
+    float _frameTime;
+
+    float _time;
 };
 
